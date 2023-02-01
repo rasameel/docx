@@ -410,6 +410,16 @@ func (d *Docx) ReplaceImage(oldImage string, newImage string) (err error) {
 	return fmt.Errorf("old image: %q, file not found", oldImage)
 }
 
+func (d *Docx) ReplaceAllPng(newImage string) (err error) {
+	for key := range d.images {
+		splited := strings.Split(key, ".")
+		if splited[len(splited)-1] == "png" {
+			d.images[key] = newImage
+		}
+	}
+	return nil
+}
+
 func (d *Docx) ImagesLen() int {
 	return len(d.images)
 }
